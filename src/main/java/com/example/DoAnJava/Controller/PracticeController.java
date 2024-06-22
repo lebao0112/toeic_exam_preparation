@@ -11,4 +11,6 @@ public class PracticeController {
     public String index() {
         return "practice/index";
     }
+
+
 }
