@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Test</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<h1>Create Test</h1>
+
+<form th:action="@{/tests/create}" th:object="${examTest}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="title">Tên đề thi:</label>
+        <input type="text" id="title" th:field="*{title}" required/><br/>
+    </div>
+    <div class="form-group">
+        <label for="file">Thêm file câu hỏi:</label>
+        <input type="file" id="file" name="file" required/><br/>
+    </div>
+    <div class="form-group">
+        <label for="imageFiles">Thêm file ảnh:</label>
+        <input type="file" id="imageFiles" name="imageFiles" multiple class="form-control-file" accept="image/*"/>
+    </div>
+    <div class="form-group">
+        <label for="audioFiles">Them file audio:</label>
+        <input type="file" id="audioFiles" name="audioFiles" multiple class="form-control-file" accept="audio/*"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a class="btn btn-secondary" th:href="@{/tests}">Huỷ</a>
+</form>
+
+</body>
+</html>
