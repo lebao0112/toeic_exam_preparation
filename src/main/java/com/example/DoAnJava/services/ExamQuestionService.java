@@ -32,4 +32,6 @@ public class ExamQuestionService {
     public void deleteById(Integer id) {
         examQuestionRepository.deleteById(id);
     }
+
+
 }

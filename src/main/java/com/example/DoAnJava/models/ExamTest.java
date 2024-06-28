@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @RequiredArgsConstructor
@@ -21,4 +23,6 @@ public class ExamTest {
     @Column(name = "title")
     private String title;
 
+    @OneToMany(mappedBy = "examTest", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ExamQuestion> questions;
 }

@@ -26,10 +26,10 @@ public class ExamTestResult {
     private Integer resultId;
 
     @Column(name = "correct_questions") //so  cau dung
-    private int correctQuestoins;
+    private int correctQuestions;
 
     @Column(name = "incorrect_questions")
-    private int incorrectQuestoins;
+    private int incorrectQuestions;
 
     @Column(name = "do_exam_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")

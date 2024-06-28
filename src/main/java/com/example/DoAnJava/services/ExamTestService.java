@@ -17,6 +17,8 @@ public class ExamTestService {
     @Autowired
     private ExamTestRepository examTestRepository;
 
+    @Autowired
+    private ExamQuestionRepository examQuestionRepository;
     public List<ExamTest> findAll() {
         return examTestRepository.findAll();
     }
@@ -31,6 +33,9 @@ public class ExamTestService {
 
     public void deleteById(Integer id) {
         examTestRepository.deleteById(id);
+    }
+    public List<ExamQuestion> findQuestionsByTestIdAndPart(Integer testId, int part) {
+        return examQuestionRepository.findByTestIdAndPart(testId, part);
     }
 }
 

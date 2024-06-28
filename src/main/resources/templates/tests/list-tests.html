@@ -22,8 +22,10 @@
             <td th:text="${test.title}"></td>
             <td>
                 <a class="btn btn-warning btn-sm" th:href="@{/tests/edit/{id}(id=${test.examTestId})}">Edit</a>
-                <a class="btn btn-danger btn-sm" th:href="@{/tests/delete/{id}(id=${test.examTestId})}"
-                   th:onclick="return confirm('Are you sure you want to delete this test?');">Delete</a>
+                <form th:action="@{'/tests/delete/' + ${test.examTestId}}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger"
+                            onclick="return confirm('Are you sure you want to delete this test?');">Delete</button>
+                </form>
             </td>
         </tr>
         </tbody>

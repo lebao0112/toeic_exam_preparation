@@ -55,6 +55,9 @@ public class ExamQuestion {
     @Column(name = "correct_answer")
     private String correctAnswer;
 
+    @Column(name = "script", length = 10000)
+    private String script;
+
     @ManyToOne
     @JoinColumn(name="exam_test_id",nullable= false)
     @OnDelete(action = OnDeleteAction.CASCADE)

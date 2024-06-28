@@ -50,6 +50,7 @@ public class ExamQuestionImporter {
                 examQuestion.setOptionD(getStringCellValue(row.getCell(8)));
                 examQuestion.setCorrectAnswer(getStringCellValue(row.getCell(9)));
                 examQuestion.setPart(getNumericCellValue(row.getCell(10)));
+                examQuestion.setScript(getStringCellValue(row.getCell(11)));
 
                 // Set the ExamTest entity
                 examQuestion.setExamTest(examTest);
