@@ -6,11 +6,11 @@
     <title>Login</title>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
     <style>
-        .question-text{
+        .question-number{
             font-weight: bold;
         }
 
@@ -66,164 +66,194 @@
 </head>
 <body>
 <section layout:fragment="content" class="container mt-5">
-    <div class="container" th:object="${examTest}">
-        <span id="mins" th:text="${mins}" style="display:none;"></span>
-        <h4 th:text="*{title}"></h4>
-        <div class="row d-flex">
-            <div class="col-md-9 mr-2 border border-dark overflow-auto" style="max-height:135vh;">
-                <div class="question" th:each="question : *{questions}">
-                    <p class="question-text" th:text="'Câu ' + ${question.number} +':'" th:attr="id='question-' + ${question.number}"></p>
+        <!-- Your existing content -->
+        <div class="container" th:object="${examTest}">
+            <span id="mins" th:text="${mins}" style="display:none;"></span>
+            <span id="exam-test-id" th:text="${examTest.examTestId}" style="display:none;"></span>
+            <h4 th:text="*{title}"></h4>
 
-                    <img th:if="${question.imageUrl}" th:src="@{/images/test-images/{title}/{imageFileName}(title=${examTest.title}, imageFileName=${question.imageUrl})}" />
+            <div class="row d-flex">
+                <div class="col-md-9 mr-2 border border-dark overflow-auto" style="max-height:135vh;">
+                    <div class="question" th:each="question : *{questions}">
+                        <p class="question-number" th:text="'Câu ' + ${question.number} +':'" th:attr="id='question-' + ${question.number}"></p>
 
-                    <!-- Display audio if audioUrl is present -->
-                    <audio th:if="${question.audioUrl}" controls>
-                        <source th:src="@{/audio/test-audio/{title}/{audioFileName}(title=${examTest.title}, audioFileName=${question.audioUrl})}" type="audio/mpeg">
-                    </audio>
+                        <img th:if="${question.imageUrl}" th:src="@{/images/test-images/{title}/{imageFileName}(title=${examTest.title}, imageFileName=${question.imageUrl})}" />
 
-                    <!--Choices will be displayed here-->
-                    <div class="mt-3 mb-5 choices-section">
-                        <div class="choice">
-                            <input type="radio" th:attr="name='question-' + ${question.questionId}" th:value="${question.optionA}" th:id="'question-' + ${question.questionId} + '-A'" />
-                            <label th:for="'question-' + ${question.questionId} + '-A'" th:text="${question.optionA}"></label>
-                        </div>
-                        <div class="choice">
-                            <input type="radio" th:attr="name='question-' + ${question.questionId}" th:value="${question.optionB}" th:id="'question-' + ${question.questionId} + '-B'" />
-                            <label th:for="'question-' + ${question.questionId} + '-B'" th:text="${question.optionB}"></label>
-                        </div>
-                        <div class="choice">
-                            <input type="radio" th:attr="name='question-' + ${question.questionId}" th:value="${question.optionC}" th:id="'question-' + ${question.questionId} + '-C'" />
-                            <label th:for="'question-' + ${question.questionId} + '-C'" th:text="${question.optionC}"></label>
-                        </div>
-                        <div class="choice">
-                            <input type="radio" th:attr="name='question-' + ${question.questionId}" th:value="${question.optionD}" th:id="'question-' + ${question.questionId} + '-D'" />
-                            <label th:for="'question-' + ${question.questionId} + '-D'" th:text="${question.optionD}"></label>
+                        <!-- Display audio if audioUrl is present -->
+                        <audio th:if="${question.audioUrl}" controls>
+                            <source th:src="@{/audio/test-audio/{title}/{audioFileName}(title=${examTest.title}, audioFileName=${question.audioUrl})}" type="audio/mpeg">
+                        </audio>
+                        <p class="question-text" th:if="${question.question}" th:text="${question.question}"></p>
+                        <!--Choices will be displayed here-->
+                        <div class="mt-3 mb-5 choices-section">
+                            <div class="choice">
+                                <input type="radio" th:name="${question.questionId}" th:value="${question.optionA}" th:id="'question-' + ${question.questionId} + '-A'" />
+                                <label th:for="'question-' + ${question.questionId} + '-A'" th:text="${question.optionA}"></label>
+                            </div>
+                            <div class="choice">
+                                <input type="radio" th:name="${question.questionId}" th:value="${question.optionB}" th:id="'question-' + ${question.questionId} + '-B'" />
+                                <label th:for="'question-' + ${question.questionId} + '-B'" th:text="${question.optionB}"></label>
+                            </div>
+                            <div class="choice">
+                                <input type="radio"  th:name="${question.questionId}" th:value="${question.optionC}" th:id="'question-' + ${question.questionId} + '-C'" />
+                                <label th:for="'question-' + ${question.questionId} + '-C'" th:text="${question.optionC}"></label>
+                            </div>
+                            <div class="choice">
+                                <input type="radio" th:name="${question.questionId}" th:value="${question.optionD}" th:id="'question-' + ${question.questionId} + '-D'" />
+                                <label th:for="'question-' + ${question.questionId} + '-D'" th:text="${question.optionD}"></label>
+                            </div>
+
                         </div>
                     </div>
 
 
                 </div>
-            </div>
-            <div class="col-md-3 border border-dark h-100" >
-                <div class="row">
-                    <div id="time-countdown" class="col-md-12 d-flex flex-column justify-content-center">
-                        <p class="w-100 text-center"> Thời gian còn lại:</p>
-                        <h3 class="w-100 text-center">
-                            <span id="minutes" class="time-display"></span>:<span id="seconds" class="time-display"></span>
-                        </h3>
-                        <a id="submit-test-btn" class="btn btn-secondary text-center">
-                            Nộp bài
-                        </a>
+                <div class="col-md-3 border border-dark h-100" >
+                    <div class="row">
+                        <div id="time-countdown" class="col-md-12 d-flex flex-column justify-content-center">
+                            <p class="w-100 text-center"> Thời gian còn lại:</p>
+                            <h3 class="w-100 text-center">
+                                <span id="minutes" class="time-display"></span>:<span id="seconds" class="time-display"></span>
+                            </h3>
+                            <button id="submit-test-btn" class="btn btn-secondary text-center" >
+                                Nộp bài
+                            </button>
 
-                    </div>
-                    <div class="col-md-12 mt-3">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h5 class="part-title">Part 1</h5>
-                                <div class="row" >
-                                    <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart1}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}"  th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5 class="part-title">Part 1</h5>
+                                    <div class="row" >
+                                        <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart1}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}"  th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
 
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <h5 class="part-title">Part 2</h5>
-                                <div class="row" >
-                                    <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart2}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}" th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
+                                <div class="col-md-12">
+                                    <h5 class="part-title">Part 2</h5>
+                                    <div class="row" >
+                                        <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart2}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}" th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
 
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <h5 class="part-title">Part 3</h5>
-                                <div class="row" >
-                                    <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart3}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}" th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
+                                <div class="col-md-12">
+                                    <h5 class="part-title">Part 3</h5>
+                                    <div class="row" >
+                                        <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart3}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}" th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <h5 class="part-title">Part 4</h5>
-                                <div class="row" >
-                                    <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart4}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}" th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
+                                <div class="col-md-12">
+                                    <h5 class="part-title">Part 4</h5>
+                                    <div class="row" >
+                                        <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart4}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}" th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <h5 class="part-title">Part 5</h5>
-                                <div class="row" >
-                                    <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart5}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}" th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
+                                <div class="col-md-12">
+                                    <h5 class="part-title">Part 5</h5>
+                                    <div class="row" >
+                                        <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart5}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}" th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <h5 class="part-title">Part 6</h5>
-                                <div class="row" >
-                                    <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart6}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}"  th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
+                                <div class="col-md-12">
+                                    <h5 class="part-title">Part 6</h5>
+                                    <div class="row" >
+                                        <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart6}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}"  th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <h5 class="part-title">Part 7</h5>
-                                <div class="row" >
-                                    <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart7}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}" th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
+                                <div class="col-md-12">
+                                    <h5 class="part-title">Part 7</h5>
+                                    <div class="row" >
+                                        <div class="col-md-2 question-square m-1" th:each="question : ${questionsOfPart7}" th:text="${question.number}"  th:attr="data-question-id=${question.questionId}" th:onclick="'onJumpToQuestion(\'' + ${question.number} + '\')'"></div>
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
+
+
         </div>
-    </div>
+
+
 
     <script th:inline="javascript">
         document.addEventListener('DOMContentLoaded', (event) => {
-             // Get the minutes from the server-side variable
-             const minsElement = document.getElementById('mins');
+           const minsElement = document.getElementById('mins');
+           const initialMinutes = parseInt(minsElement.textContent, 10) || 0;
+           let time = initialMinutes * 60;
+           const countdownElement = document.getElementById('time-countdown');
+           const minutesElement = document.getElementById('minutes');
+           const secondsElement = document.getElementById('seconds');
 
-             const initialMinutes = parseInt(minsElement.textContent, 10) || 0;
-             console.log(initialMinutes);
-             let time = initialMinutes * 60; // Convert minutes to seconds
+           function updateCountdown() {
+               const minutesLeft = Math.floor(time / 60);
+               const secondsLeft = time % 60;
 
-             const countdownElement = document.getElementById('time-countdown');
-             const minutesElement = document.getElementById('minutes');
-             const secondsElement = document.getElementById('seconds');
+               minutesElement.textContent = String(minutesLeft).padStart(2, '0');
+               secondsElement.textContent = String(secondsLeft).padStart(2, '0');
 
-             function updateCountdown() {
-                 const minutesLeft = Math.floor(time / 60);
-                 const secondsLeft = time % 60;
+               if (time > 0) {
+                   time--;
+               } else {
+                   clearInterval(countdownInterval);
+               }
+           }
 
-                 minutesElement.textContent = String(minutesLeft).padStart(2, '0');
-                 secondsElement.textContent = String(secondsLeft).padStart(2, '0');
+           const countdownInterval = setInterval(updateCountdown, 1000);
+           updateCountdown();
 
-                 if (time > 0) {
-                     time--;
-                 } else {
-                     clearInterval(countdownInterval);
-                     // Time is up, you can add additional logic here (e.g., submit the test automatically)
-                 }
-             }
+           document.querySelectorAll('.choices-section .choice input[type="radio"]').forEach(radio => {
+               radio.addEventListener('change', function() {
+                   const questionId = this.id.split('-')[1];
+                   const questionSquare = document.querySelector(`.question-square[data-question-id="${questionId}"]`);
+                   if (questionSquare) {
+                       questionSquare.classList.add('active');
+                   }
+               });
+           });
 
-             const countdownInterval = setInterval(updateCountdown, 1000);
-             updateCountdown(); // Initialize the countdown display immediately
-         });
+           window.addEventListener('beforeunload', function (e) {
+               const confirmationMessage = 'Bạn sẽ mất bài thi nếu như thoát. Tiếp tục ?';
+               (e || window.event).returnValue = confirmationMessage;
+               return confirmationMessage;
+           });
 
-         document.querySelectorAll('.choices-section .choice input[type="radio"]').forEach(radio => {
-            radio.addEventListener('change', function() {
-                const questionId = this.name.split('-')[1];
-                const questionSquare = document.querySelector(`.question-square[data-question-id="${questionId}"]`);
-                if (questionSquare) {
-                    questionSquare.classList.add('active');
-                }
-            });
-        });
-        window.addEventListener('beforeunload', function (e) {
-            const confirmationMessage = 'Bạn sẽ mất bài thi nếu như thoát. Tiếp tục ?';
-            (e || window.event).returnValue = confirmationMessage; // Gecko + IE
-            return confirmationMessage; // Gecko + Webkit, Safari, Chrome etc.
-        })
 
+           const examTestId = parseInt(document.getElementById('exam-test-id').textContent);
+           $('#submit-test-btn').click(function() {
+               let answers = {};
+               $('.choices-section .choice input[type="radio"]:checked').each(function() {
+                   let questionId = $(this).attr('name');
+                   let answer = $(this).val();
+                   answers[questionId] = answer;
+               });
+
+                console.log(answers);
+
+               $.ajax({
+                   contentType: 'application/json',
+                   url: 'http://localhost:8080/api/result/submit-answers?examTestId=' + examTestId,
+                   type: 'POST',
+                   data: JSON.stringify(answers),
+                   success: function(response) {
+                       console.log('Answers submitted successfully:', response);
+                   },
+                   error: function(xhr, status, error) {
+                       console.error('Error submitting answers:', error);
+                   }
+               });
+           });
+       });
         function onJumpToQuestion(questionNumber) {
-            console.log(questionNumber);
-            document.getElementById('question-' + questionNumber).scrollIntoView({ behavior: 'instant' });
-        }
-
-
+               document.getElementById('question-' + questionNumber).scrollIntoView({ behavior: 'instant' });
+           }
     </script>
+
+
 </section>
 
 </body>

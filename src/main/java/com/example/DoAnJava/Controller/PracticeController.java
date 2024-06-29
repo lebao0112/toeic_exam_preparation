@@ -4,15 +4,16 @@ import com.example.DoAnJava.models.ExamQuestion;
 import com.example.DoAnJava.models.ExamTest;
 import com.example.DoAnJava.services.ExamQuestionService;
 import com.example.DoAnJava.services.ExamTestService;
+import com.example.DoAnJava.services.ExamUserAnswerService;
+import com.example.DoAnJava.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RequestMapping("/practice")
@@ -21,7 +22,11 @@ import java.util.Optional;
 public class PracticeController {
     private final ExamTestService examTestService;
 
-    private final ExamQuestionService examQuestionServiceService;
+    private final ExamQuestionService examQuestionService;
+
+    private final ExamUserAnswerService examUserAnswerService;
+
+    private final UserService userService;
 
     @GetMapping
     public String listTests(Model model) {
@@ -49,5 +54,14 @@ public class PracticeController {
         }
     }
 
+    @PostMapping("/submit-answers")
+    public ResponseEntity<String> submitAnswers(@RequestBody Map<String, String> answers) {
+        // Process answers
+        System.out.println("Submitted answers: " + answers);
+
+        // Example: You can process answers here and return a response
+        // For simplicity, returning a success message
+        return ResponseEntity.ok("Answers submitted successfully.");
+    }
 
 }

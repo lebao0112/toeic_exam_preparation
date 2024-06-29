@@ -58,9 +58,15 @@ public class ExamQuestion {
     @Column(name = "script", length = 10000)
     private String script;
 
+    @Transient
+    private String selectedAnswer;
+
     @ManyToOne
     @JoinColumn(name="exam_test_id",nullable= false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private ExamTest examTest;
+
+    public ExamQuestion(Integer questionId) {
+    }
 }

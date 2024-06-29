@@ -34,10 +34,10 @@ public class SecurityConfig {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http) throws Exception {
-        return http
+        return http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/", "/oauth/**", "/register", "/error",
-                                "/products", "/cart", "/cart/**","/nhanviens","/images/**","/test/","/practice/")
+                                "/products", "/cart", "/cart/**","/nhanviens","/images/**","/test/","/practice","/api/result/submit-answers")
                         .permitAll() // Cho phép truy cập không cần xác thực.
                         .requestMatchers("images/test-images/**")
                         .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
