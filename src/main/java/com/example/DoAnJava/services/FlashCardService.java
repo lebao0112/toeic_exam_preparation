@@ -4,6 +4,7 @@ package com.example.DoAnJava.services;
 import com.example.DoAnJava.Repository.FlashCardRepository;
 
 import com.example.DoAnJava.models.FlashCard;
+import com.example.DoAnJava.models.ListFlashCards;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -56,5 +57,9 @@ public class FlashCardService {
             throw new IllegalStateException("Card with ID " + id + " does not exist.");
         }
         cardRepository.deleteById(id);
+    }
+
+    public List<FlashCard> findAllCardsByListId(Long listId){
+        return cardRepository.findByListFlashCardsId(listId);
     }
 }

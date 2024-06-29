@@ -1,29 +1,33 @@
 package com.example.DoAnJava.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Setter
 @Getter
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
-public class FlashCard {
+public class ListFlashCards {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String question;
-    private String answer;
+    @NotNull
+    private String title;
+
+    private String description;
+
+    @OneToMany(mappedBy = "listFlashCards", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FlashCard> flashCards;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "list_flashcards_id")
-    @JsonBackReference
-    private ListFlashCards listFlashCards;
-
-    // Constructors, getters, and setters
+    @JoinColumn(name = "user_id")
+    private User user;
 }
