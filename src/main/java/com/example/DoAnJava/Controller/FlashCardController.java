@@ -119,7 +119,7 @@ public class FlashCardController {
             return "flashcards/update-card";
         }
         cardService.updateCard(card);
-        return "redirect:/flashcards";
+        return "redirect:/listflashcards";
     }
 
     // Delete a card
@@ -187,6 +187,28 @@ public class FlashCardController {
             }
         }
 
+        return "redirect:/flashcards/list/" + listId;
+    }
+
+    // Show form to update a card in a specific list
+    @GetMapping("/list/{listid}/edit/{id}")
+    public String showFormEdit(@PathVariable("listid") Long listId, @PathVariable("id") Long id, Model model) {
+        FlashCard card = cardService.getCardById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid card Id:" + id));
+        model.addAttribute("card", card);
+        model.addAttribute("listId", listId);
+        return "flashcards/update-card";
+    }
+
+    // Process form submission to update a card in a specific list
+    @PostMapping("/list/{listid}/edit/{id}")
+    public String updateCardFromList(@PathVariable("listid") Long listId, @PathVariable("id") Long id, @Valid FlashCard card,
+                                     BindingResult result) {
+        if (result.hasErrors()) {
+            card.setId(id);
+            return "flashcards/update-card";
+        }
+        cardService.updateCard(card);
         return "redirect:/flashcards/list/" + listId;
     }
 }

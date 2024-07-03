@@ -24,10 +24,15 @@
 <link rel="stylesheet" type="text/css" href="/css/vendor.css">
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-
+<style>
+    .my-4 p {
+      line-height: 1.5;
+    }
+</style>
 </head>
 
 <body>
@@ -143,7 +148,7 @@
 
 <section id="top-nav" class="bg-dark">
     <div class="text-center px-md-3 py-md-2">
-        <p class="text-white py-1 m-0">Nhận khóa học đầu tiên với mức giảm giá 50%. Ưu đãi chỉ dành cho 50 học viên đầu tiên.
+        <p class="text-white py-1 m-0">Nhận khóa học đầu tiên với mức giảm giá 20%. Ưu đãi chỉ dành cho 50 học viên đầu tiên.
             <span><a href="account.html" class="text-white text-decoration-underline">Đăng kí ngay</a></span>
         </p>
     </div>
@@ -170,34 +175,36 @@
 
             <div class="offcanvas-body justify-content-between">
                 <div class="main-logo">
-                    <a href="index.html">
+                    <a href="/">
                         <img src="images/logo.png" alt="logo" class="img-fluid">
                     </a>
                 </div>
 
                 <ul class="navbar-nav menu-list list-unstyled align-items-lg-center d-flex gap-md-3 mb-0">
                     <li class="nav-item">
-                        <a href="index.html" class="nav-link mx-2 active">Trang chủ</a>
+                        <a href="/" class="nav-link mx-2 active">Trang chủ</a>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="pages" data-bs-toggle="dropdown" aria-expanded="false">Giới Thiệu</a>
-                        <ul class="dropdown-menu" aria-labelledby="courses">
-                            <li><a href="courses.html" class="dropdown-item">Về chúng tôi</a></li>
-                            <li><a href="courses-details.html" class="dropdown-item">Câu hỏi thường gặp</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="about">
+                            <li><a href="/about" class="dropdown-item">Về chúng tôi</a></li>
+                            <li><a href="/dailyquestion" class="dropdown-item">Câu hỏi thường gặp</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="courses"
+                        <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">Khóa Học</a>
                         <ul class="dropdown-menu" aria-labelledby="courses">
-                            <li><a href="courses.html" class="dropdown-item">Khóa lấy lại nền tảng tiếng Anh<span
+                            <li><a href="/leveltest" class="dropdown-item">Test trình độ tiếng anh</a></li>
+                            <li><a href="/courses" class="dropdown-item">Danh sách tất cả khóa học</a></li>
+                            <li><a href="/courses/1" class="dropdown-item">KHÓA HỌC LUYỆN THI TOEIC TỪ 0 - 350<span
                                     class="badge bg-secondary text-white ms-2">PRO</span></a></li>
-                            <li><a href="courses-details.html" class="dropdown-item">Khóa luyện thi TOEIC mất gốc<span
+                            <li><a href="/courses/2" class="dropdown-item">KHÓA HỌC LUYỆN THI TOEIC TỪ 350 - 550<span
                                     class="badge bg-secondary text-white ms-2">PRO</span></a></li>
-                            <li><a href="courses-details.html" class="dropdown-item">Khóa luyện thi TOEIC mục tiêu 500+<span
+                            <li><a href="/courses/3" class="dropdown-item">KHÓA HỌC LUYỆN THI TOEIC TỪ 550 - 750<span
                                     class="badge bg-secondary text-white ms-2">PRO</span></a></li>
-                            <li><a href="courses-details.html" class="dropdown-item">Khóa luyện thi TOEIC mục tiêu 750+<span
+                            <li><a href="/courses/4" class="dropdown-item">KHÓA HỌC LUYỆN THI TOEIC TRÊN 750+<span
                                     class="badge bg-secondary text-white ms-2">PRO</span></a></li>
                         </ul>
                     </li>
@@ -205,36 +212,26 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="events"
                            data-bs-toggle="dropdown" aria-expanded="false">Bài học</a>
-                        <ul class="dropdown-menu" aria-labelledby="courses">
-                            <li><a href="event.html" class="dropdown-item">Ngữ Pháp<span
-                                    class="badge bg-secondary text-white ms-2">PRO</span></a></li>
-                            <li><a href="event-details.html" class="dropdown-item">Từ vựng<span
-                                    class="badge bg-secondary text-white ms-2">PRO</span></a></li>
-                            <li><a href="event-details.html" class="dropdown-item">Luyện nghe<span
-                                    class="badge bg-secondary text-white ms-2">PRO</span></a></li>
-                            <li><a href="event-details.html" class="dropdown-item">Luyện đọc<span
-                                    class="badge bg-secondary text-white ms-2">PRO</span></a></li>
+                        <ul class="dropdown-menu" aria-labelledby="lessons">
+                            <li><a href="/lessons/category/1" class="dropdown-item">Ngữ Pháp</a></li>
+                            <li><a href="/lessons/category/2" class="dropdown-item">Từ vựng</a></li>
+                            <li><a href="/lessons/category/3" class="dropdown-item">Phát Âm</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="shop"
-                           data-bs-toggle="dropdown" aria-expanded="false">Luyện thi</a>
-                        <ul class="dropdown-menu" aria-labelledby="shop">
-                            <li><a href="shop.html" class="dropdown-item">Thi Nghe<span
-                                    class="badge bg-secondary text-white ms-2">PRO</span></a></li>
-                            <li><a href="single-product.html" class="dropdown-item">Thi Viết<span
-                                    class="badge bg-secondary text-white ms-2">PRO</span></a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link mx-2 dropdown-toggle align-items-center" role="button" id="blog"
-                           data-bs-toggle="dropdown" aria-expanded="false">Bài viết</a>
+                    <li class="nav-item">
+                        <a href="/listflashcards" class="nav-link mx-2">FlashCards</a>
                     </li>
                     <li class="nav-item">
-                        <a href="contact.html" class="nav-link mx-2">Liên hệ</a>
+                        <a href="/practice" class="nav-link mx-2">Luyện thi</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/listflashcards" class="nav-link mx-2">Flash Cards</a>
+                        <a href="/blogs" class="nav-link mx-2">Bài viết</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/contact" class="nav-link mx-2">Liên hệ</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                        <a href="/admin" class="nav-link mx-2">Admin</a>
                     </li>
                 </ul>
 
@@ -256,7 +253,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="account.html" class="ms-3">
+                            <a href="/account" class="ms-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px">
                                     <use href="#user-circle" />
                                 </svg> </a>
@@ -288,7 +285,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="account.html" class="me-3">
+                    <a href="/account" class="me-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px">
                             <use href="#user-circle" />
                         </svg> </a>
@@ -300,13 +297,14 @@
 <section layout:fragment="content">
     <!-- Nội dung cụ thể của từng trang sẽ được đặt tại đây -->
 </section>
-<footer id="footer" class="text-dark pt-5">
-    <div class="container">
+<footer id="footer" class="text-dark">
+    <hr>
+    <div class="container" style="padding: 20px; font-size: 18px;">
         <div class="row">
             <div class="col-lg-3 col-md-6 mb-4" style="line-height: 1.6;">
                 <div class="footer-menu">
                     <a href="index.html">
-                        <img src="images/logo.png" alt="logo" class="img-fluid mb-3">
+                        <img src="/images/logo.png" alt="logo" class="img-fluid mb-3">
                     </a>
                     <div class="social-links mt-4">
                         <ul class="d-flex list-unstyled">
@@ -349,7 +347,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4" style="line-height: 1.6;">
+            <div class="col-lg-3 col-md-6 mb-4" style="line-height: 1.8;">
                 <div class="footer-menu">
                     <h5 class="fw-bold mb-4">Về chúng tôi</h5>
                     <ul class="menu-list list-unstyled">
@@ -362,7 +360,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4" style="line-height: 1.6;">
+            <div class="col-lg-3 col-md-6 mb-4" style="line-height: 1.8;">
                 <div class="footer-menu">
                     <h5 class="fw-bold mb-4">Danh mục</h5>
                     <ul class="menu-list list-unstyled">
@@ -379,6 +377,9 @@
                             <a href="#" class="footer-link text-decoration-none text-dark">Bài học</a>
                         </li>
                         <li class="menu-item mb-2">
+                            <a href="#" class="footer-link text-decoration-none text-dark">FlashCards</a>
+                        </li>
+                        <li class="menu-item mb-2">
                             <a href="#" class="footer-link text-decoration-none text-dark">Luyện Thi</a>
                         </li>
                         <li class="menu-item mb-2">
@@ -387,10 +388,11 @@
                         <li class="menu-item mb-2">
                             <a href="#" class="footer-link text-decoration-none text-dark">Liên Hệ</a>
                         </li>
+
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4" style="line-height: 1.6;">
+            <div class="col-lg-3 col-md-6 mb-4" style="line-height: 1.8;">
                 <div class="footer-menu">
                     <h5 class="fw-bold mb-4">Liên hệ chúng tôi</h5>
                     <ul class="menu-list list-unstyled">
@@ -409,7 +411,6 @@
         </div>
     </div>
 </footer>
-
 <div id="footer-bottom">
     <hr class="text-black-50">
     <div class="container">

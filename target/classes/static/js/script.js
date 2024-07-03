@@ -163,3 +163,170 @@
   }); // End of a document
 
 })(jQuery);
+
+document.querySelectorAll('input[name="currentLevel"]').forEach(function (radio) {
+    radio.addEventListener('change', updateTargetOptions);
+});
+
+document.querySelectorAll('input[name="targetScore"]').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+        var currentLevel = document.querySelector('input[name="currentLevel"]:checked');
+        if (currentLevel) {
+            var targetScore = this.value;
+            displayCourseInfo(currentLevel.value, targetScore);
+        }
+    });
+});
+
+function updateTargetOptions() {
+    var currentLevel = document.querySelector('input[name="currentLevel"]:checked').value;
+    document.querySelectorAll('input[name="targetScore"]').forEach(function (radio) {
+        radio.disabled = false;
+        radio.checked = false;
+
+        if ((currentLevel === '350' && radio.value === '350') ||
+            (currentLevel === '550' && (radio.value === '350' || radio.value === '550')) ||
+            (currentLevel === '750' && (radio.value === '350' || radio.value === '550' || radio.value === '750'))) {
+            radio.disabled = true;
+        }
+    });
+}
+
+function displayCourseInfo(level, score) {
+    var courseRange = document.getElementById('courseRange');
+    var courseDetails = document.getElementById('courseDetails');
+    var courseInfo = document.getElementById('courseInfo');
+
+    courseRange.innerHTML = '';
+    courseDetails.innerHTML = '';
+
+    var courses = [];
+    var prices = [];
+
+    if (level === '0') {
+        if (score === '350') {
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 0 - 350');
+            prices.push('Giá: 1500000');
+        } else if (score === '550') {
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 0 - 350');
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 350 - 550');
+            prices.push('Giá: 1500000', 'Giá: 2500000');
+        } else if (score === '750') {
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 0 - 350');
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 350 - 550');
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 550 - 750');
+            prices.push('Giá: 1500000', 'Giá: 2500000', 'Giá: 4000000');
+        } else if (score === '750+') {
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 0 - 350');
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 350 - 550');
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 550 - 750');
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TRÊN 750+');
+            prices.push('Giá: 1500000', 'Giá: 2500000', 'Giá: 4000000', 'Giá: 6000000');
+        }
+    } else if (level === '350') {
+        if (score === '550') {
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 350 - 550');
+            prices.push('Giá: 2500000');
+        } else if (score === '750') {
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 350 - 550');
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 550 - 750');
+            prices.push('Giá: 2500000', 'Giá: 4000000');
+        } else if (score === '750+') {
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 350 - 550');
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 550 - 750');
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TRÊN 750+');
+            prices.push('Giá: 2500000', 'Giá: 4000000', 'Giá: 6000000');
+        }
+    } else if (level === '550') {
+        if (score === '750') {
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 550 - 750');
+            prices.push('Giá: 4000000');
+        } else if (score === '750+') {
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TỪ 550 - 750');
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TRÊN 750+');
+            prices.push('Giá: 4000000', 'Giá: 6000000');
+        }
+    } else if (level === '750') {
+        if (score === '750+') {
+            courses.push('KHÓA HỌC LUYỆN THI TOEIC TRÊN 750+');
+            prices.push('Giá: 6000000');
+        }
+    }
+
+    courseRange.innerHTML = courses.map((course, index) => `${course}<br>${prices[index]}`).join('<br><br>');
+
+    courseInfo.style.display = 'block';
+}
+function payNow() {
+        // Xử lý logic thanh toán ở đây
+        alert("Thanh toán thành công!");
+}
+function showPaymentInfo(paymentMethod) {
+        document.getElementById('mbBankInfo').style.display = 'none';
+        document.getElementById('momoInfo').style.display = 'none';
+
+        if (paymentMethod === 'mbBank') {
+            document.getElementById('mbBankInfo').style.display = 'block';
+        } else if (paymentMethod === 'momo') {
+            document.getElementById('momoInfo').style.display = 'block';
+        }
+    }
+
+function applyDiscount() {
+    const discountCode = document.getElementById('discountCode').value.trim(); // Lấy giá trị mã giảm giá và loại bỏ khoảng trắng ở đầu cuối
+    let totalPrice = parseFloat(document.getElementById('initialPrice').innerText.replace(/,/g, ''));
+    let discountedPrice;
+
+    if (discountCode === 'KHOADAUTIEN20') {
+        // Nếu mã giảm giá là KHOADAUTIEN20, giảm 20%
+        discountedPrice = totalPrice - (totalPrice * 0.20);
+        alert("Áp dụng mã giảm giá thành công !");
+    } else {
+        // Nếu mã giảm giá không đúng
+        discountedPrice = totalPrice;
+        alert("Mã giảm giá không đúng hoặc không tồn tại.");
+    }
+
+    document.getElementById('finalPrice').innerText = discountedPrice.toLocaleString('vi-VN', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+}
+
+function FreeDiscount() {
+    // Xử lý logic thanh toán ở đây
+    alert("Cám ơn bạn đã tin tưởng và lựa chọn Agent, ban giáo vụ Agent sẽ liên hệ tư vấn muộn nhất sau 24h ạ!");
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+          const descriptions = document.querySelectorAll(".card-text");
+          descriptions.forEach(description => {
+              const words = description.innerText.split(" ");
+              if (words.length > 30) {
+                  description.innerText = words.slice(0, 30).join(" ") + "...";
+              }
+          });
+      });
+
+      document.getElementById('exerciseForm').addEventListener('submit', function(event) {
+              event.preventDefault();
+              // Validate and process form data here
+              document.getElementById('exerciseResult').innerHTML = 'Kết quả bài tập';
+          });
+
+          function validateForm() {
+                      // Get all radio buttons
+                      var radioButtons = document.querySelectorAll('input[type="radio"]');
+                      var checked = false;
+
+                      // Check if any radio button is checked
+                      radioButtons.forEach(function(radioButton) {
+                          if (radioButton.checked) {
+                              checked = true;
+                          }
+                      });
+
+                      // Return false if no radio button is checked, otherwise allow form submission
+                      if (!checked) {
+                          alert('Vui lòng chọn đáp án cho mỗi câu hỏi trước khi nộp !!');
+                          return false;
+                      }
+                      return true;
+                  }

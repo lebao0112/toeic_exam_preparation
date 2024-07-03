@@ -20,6 +20,7 @@ public class CategoryService {
      * @return a list of categories
      */
     public List<Category> getAllCategories() {
+
         return categoryRepository.findAll();
     }
     /**
@@ -28,6 +29,7 @@ public class CategoryService {
      * @return an Optional containing the found category or empty if not found
      */
     public Optional<Category> getCategoryById(Long id) {
+
         return categoryRepository.findById(id);
     }
     /**

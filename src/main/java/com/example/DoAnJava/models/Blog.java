@@ -1,15 +1,12 @@
 package com.example.DoAnJava.models;
 
 import jakarta.persistence.Entity;
-import lombok.Data;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.*;
+
 import java.time.LocalDateTime;
-import java.util.List;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Setter
 @Getter

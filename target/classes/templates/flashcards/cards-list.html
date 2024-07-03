@@ -240,10 +240,10 @@
                     <div class="row">
                         <div class="col grow-0">
                             <h2 class="h3" th:text="${card.question}">
-                                <a th:href="@{/flashcards/edit/{id}(id=${card.id})}">
-                                    <span class="far fa-edit"></span>
-                                </a>
                             </h2>
+                            <a th:href="@{/flashcards/list/{listid}/edit/{id}(listid=${list.id}, id=${card.id})}">
+                                <span class="fa-regular fa-pen-to-square"></span>
+                            </a>
                             <div class="font-500">Định nghĩa:</div>
                             <div class="prewrap mb-2" th:text="${card.answer}">No definition</div>
                         </div>
