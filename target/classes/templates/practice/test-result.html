@@ -120,11 +120,11 @@
                 <div class="question mb-5" th:each="question : ${questions}">
                     <p class="question-number" th:text="'Câu ' + ${question.number} +':'" th:attr="id='question-' + ${question.number}"></p>
 
-                    <img th:if="${question.imageUrl}" th:src="@{/images/test-images/{title}/{imageFileName}(title=${examTest.title}, imageFileName=${question.imageUrl})}" />
+                    <img th:if="${question.imageUrl}" th:src="@{/images/test-images/{title}/{imageFileName}(title=${examTest.examTestId}, imageFileName=${question.imageUrl})}" />
 
                     <!-- Display audio if audioUrl is present -->
                     <audio th:if="${question.audioUrl}" controls>
-                        <source th:src="@{/audio/test-audio/{title}/{audioFileName}(title=${examTest.title}, audioFileName=${question.audioUrl})}" type="audio/mpeg">
+                        <source th:src="@{/audio/test-audio/{title}/{audioFileName}(title=${examTest.examTestId}, audioFileName=${question.audioUrl})}" type="audio/mpeg">
                     </audio>
                     <p th:if="${question.selectedAnswer} == null" th:text="'Bạn chưa chọn câu trả lời'"></p>
                     <p class="question-text" th:if="${question.question}" th:text="${question.question}"></p>

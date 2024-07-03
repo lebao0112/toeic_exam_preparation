@@ -38,9 +38,6 @@ public class ExamTestResult {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime doExamDate;
 
-    @Column(name = "time-taken")
-    private int timeTaken; //second
-
     @ManyToOne
     @JoinColumn(name="id",nullable= false)
     @OnDelete(action = OnDeleteAction.CASCADE)
